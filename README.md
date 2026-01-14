@@ -21,8 +21,9 @@ Este projeto foi criado com foco em praticar lógica de programação, manipula�
 
 ```text
 gerenciador-tarefas-python/
+├── .gitignore
 ├── main.py
-├── tarefas.json
+├── tarefas.json  # Criado automaticamente ao executar
 └── README.md
 ```
 
@@ -31,7 +32,7 @@ gerenciador-tarefas-python/
 ## Como executar
 
 ### Pré-requisitos
-- Python 3.8 ou superior
+- Python 3.10 ou superior
 
 ### Passos
 1. Clone o repositório ou faça o download dos arquivos
