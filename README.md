@@ -12,6 +12,7 @@ Este projeto foi criado com foco em praticar lógica de programação, manipula�
 - Listar tarefas com status (pendente ou concluída)
 - Marcar tarefas como concluídas
 - Remover tarefas
+- Editar tarefas
 - Persistência de dados em arquivo JSON
 - Interface simples via terminal (CLI)
 
@@ -54,6 +55,7 @@ python main.py
 2 - Listar tarefas
 3 - Concluir tarefa
 4 - Remover terefa
+5 - Editar tarefa
 0 - Sair
 ```
 
@@ -76,7 +78,6 @@ As tarefas são salvas automaticamente no arquivo tarefas.json.
 
 ## Possíveis melhorias futuras
 
-- Editar tarefas existentes
 - Filtrar tarefas por status
 - Interface gráfica ou versão web
 

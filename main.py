@@ -99,12 +99,43 @@ def remover_tarefa(tarefas):
     print(f"Tarefa '{tarefa_removida['descricao']}' removida com sucesso!")
 
 
+def editar_tarefa(tarefas):
+    if len(tarefas) == 0:
+        print("Não há tarefas para editar.")
+        return
+
+    listar_tarefas(tarefas)
+
+    try:
+        indice = int(input("Digite o número da tarefa a editar: ")) - 1
+    except ValueError:
+        print("Entrada inválida. Digite um número.")
+        return
+
+    if indice < 0 or indice >= len(tarefas):
+        print("Número de tarefa inválido.")
+        return
+
+    tarefa_editada = tarefas[indice]
+    nova_descricao = input(
+        f"Nova descrição (ou Enter para cancelar): ").strip()
+
+    if nova_descricao == "":
+        print("Edição cancelada.")
+        return
+
+    tarefa_editada["descricao"] = nova_descricao
+    salvar_tarefas(tarefas)
+    print(f"Tarefa editada com sucesso! Nova descrição: '{nova_descricao}'")
+
+
 def menu():
     print("\n" + "="*40)
     print("1 - Adicionar tarefa")
     print("2 - Listar tarefas")
     print("3 - Concluir tarefa")
     print("4 - Remover tarefa")
+    print("5 - Editar tarefa")
     print("0 - Sair")
     print("="*40)
 
@@ -125,6 +156,8 @@ def main():
                 concluir_tarefa(tarefas)
             case "4":
                 remover_tarefa(tarefas)
+            case "5":
+                editar_tarefa(tarefas)
             case "0":
                 salvar_tarefas(tarefas)
                 print("Saindo...")
