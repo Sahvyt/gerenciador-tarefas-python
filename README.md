@@ -11,6 +11,7 @@ Este projeto foi criado com foco em praticar lógica de programação, manipula�
 - Adicionar novas tarefas
 - Listar tarefas com status (pendente ou concluída)
 - Marcar tarefas como concluídas
+- Remover tarefas
 - Persistência de dados em arquivo JSON
 - Interface simples via terminal (CLI)
 
@@ -51,6 +52,7 @@ python main.py
 1 - Adicionar tarefa
 2 - Listar tarefas
 3 - Concluir tarefa
+4 - Remover terefa
 0 - Sair
 ```
 
@@ -66,12 +68,13 @@ As tarefas são salvas automaticamente no arquivo tarefas.json.
 - Validação de entrada do usuário
 - Uso de estruturas de dados como listas e dicionários
 - Controle de fluxo em aplicações CLI
+- Uso de `match/case` como alternativa moderna a `if/elif/else`
+- Workflow profissional com Git (branches, commits, pull requests)
 
 ---
 
 ## Possíveis melhorias futuras
 
-- Remover tarefas
 - Editar tarefas existentes
 - Filtrar tarefas por status
 - Interface gráfica ou versão web
@@ -80,6 +83,6 @@ As tarefas são salvas automaticamente no arquivo tarefas.json.
 
 ## Autor
 
-**Kauan Melo**  
-[GitHub](https://github.com/Sahvyt)  
+**Kauan Melo**
+[GitHub](https://github.com/Sahvyt)
 [LinkedIn](https://www.linkedin.com/in/kauan-melo-8b72a0305/)
