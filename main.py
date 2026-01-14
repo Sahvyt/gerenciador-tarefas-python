@@ -41,12 +41,24 @@ def adicionar_tarefa(tarefas):
     print("Tarefa adicionada com sucesso!")
 
 
-def listar_tarefas(tarefas):
-    if len(tarefas) == 0:
-        print("Nenhuma tarefa cadastrada.")
+def listar_tarefas(tarefas, filtro=None):
+    tarefas_filtradas = tarefas
+
+    if filtro == "concluidas":
+        tarefas_filtradas = [t for t in tarefas if t["concluida"]]
+    elif filtro == "pendentes":
+        tarefas_filtradas = [t for t in tarefas if not t["concluida"]]
+
+    if len(tarefas_filtradas) == 0:
+        if filtro == "concluidas":
+            print("Nenhuma tarefa concluída cadastrada.")
+        elif filtro == "pendentes":
+            print("Nenhuma tarefa pendente cadastrada.")
+        else:
+            print("Nenhuma tarefa cadastrada.")
         return
 
-    for i, tarefa in enumerate(tarefas, start=1):
+    for i, tarefa in enumerate(tarefas_filtradas, start=1):
         status = "✔" if tarefa["concluida"] else "⏳"
         print(f"{i}. [{status}] {tarefa['descricao']}")
 
@@ -129,13 +141,39 @@ def editar_tarefa(tarefas):
     print(f"Tarefa editada com sucesso! Nova descrição: '{nova_descricao}'")
 
 
+def menu_listar_tarefas(tarefas):
+    while True:
+        print("\n" + "="*40)
+        print("LISTAR TAREFAS")
+        print("="*40)
+        print("1 - Listar todas as tarefas")
+        print("2 - Listar somente tarefas concluídas")
+        print("3 - Listar somente tarefas pendentes")
+        print("0 - Voltar ao menu principal")
+        print("="*40)
+
+        opcao = input("Escolha uma opção: ")
+
+        match opcao:
+            case "1":
+                listar_tarefas(tarefas, filtro=None)
+            case "2":
+                listar_tarefas(tarefas, filtro="concluidas")
+            case "3":
+                listar_tarefas(tarefas, filtro="pendentes")
+            case "0":
+                break
+            case _:
+                print("Opção inválida.")
+
+
 def menu():
     print("\n" + "="*40)
     print("1 - Adicionar tarefa")
-    print("2 - Listar tarefas")
+    print("2 - Remover tarefa")
     print("3 - Concluir tarefa")
-    print("4 - Remover tarefa")
-    print("5 - Editar tarefa")
+    print("4 - Editar tarefa")
+    print("5 - Listar tarefas")
     print("0 - Sair")
     print("="*40)
 
@@ -151,13 +189,13 @@ def main():
             case "1":
                 adicionar_tarefa(tarefas)
             case "2":
-                listar_tarefas(tarefas)
+                remover_tarefa(tarefas)
             case "3":
                 concluir_tarefa(tarefas)
             case "4":
-                remover_tarefa(tarefas)
-            case "5":
                 editar_tarefa(tarefas)
+            case "5":
+                menu_listar_tarefas(tarefas)
             case "0":
                 salvar_tarefas(tarefas)
                 print("Saindo...")
