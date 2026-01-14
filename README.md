@@ -9,12 +9,15 @@ Este projeto foi criado com foco em praticar lógica de programação, manipula�
 ## Funcionalidades
 
 - Adicionar novas tarefas
-- Listar tarefas com status (pendente ou concluída)
-- Marcar tarefas como concluídas
 - Remover tarefas
+- Marcar tarefas como concluídas
 - Editar tarefas
+- Listar tarefas com filtros por status:
+  - Listar todas as tarefas
+  - Listar somente tarefas concluídas
+  - Listar somente tarefas pendentes
 - Persistência de dados em arquivo JSON
-- Interface simples via terminal (CLI)
+- Interface simples via terminal (CLI) com menu hierárquico
 
 ---
 
@@ -50,13 +53,32 @@ python main.py
 
 ## Exemplos de uso
 
+### Menu Principal
+
 ```text
+========================================
 1 - Adicionar tarefa
-2 - Listar tarefas
+2 - Remover tarefa
 3 - Concluir tarefa
-4 - Remover terefa
-5 - Editar tarefa
+4 - Editar tarefa
+5 - Listar tarefas
 0 - Sair
+========================================
+```
+
+### Submenu de Listagem
+
+Ao selecionar a opção "5 - Listar tarefas", um submenu é exibido:
+
+```text
+========================================
+LISTAR TAREFAS
+========================================
+1 - Listar todas as tarefas
+2 - Listar somente tarefas concluídas
+3 - Listar somente tarefas pendentes
+0 - Voltar ao menu principal
+========================================
 ```
 
 As tarefas são salvas automaticamente no arquivo tarefas.json.
@@ -72,14 +94,18 @@ As tarefas são salvas automaticamente no arquivo tarefas.json.
 - Uso de estruturas de dados como listas e dicionários
 - Controle de fluxo em aplicações CLI
 - Uso de `match/case` como alternativa moderna a `if/elif/else`
+- Implementação de menus hierárquicos e submenus
+- Filtragem de dados com list comprehensions
 - Workflow profissional com Git (branches, commits, pull requests)
 
 ---
 
 ## Possíveis melhorias futuras
 
-- Filtrar tarefas por status
+- Adicionar, remover ou concluir múltiplas tarefas de uma só vez
 - Interface gráfica ou versão web
+- Busca de tarefas por descrição
+- Ordenação de tarefas (por data, status, etc.)
 
 ---
 
