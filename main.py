@@ -24,6 +24,13 @@ def salvar_tarefas(tarefas):
         print(f"Erro ao salvar tarefas: {e}")
 
 
+def obter_proximo_id(tarefas):
+    """Retorna o próximo ID disponível"""
+    if not tarefas:
+        return 1
+    return max(tarefa["id"] for tarefa in tarefas) + 1
+
+
 def adicionar_tarefa(tarefas):
     descricao = input("Descrição da tarefa: ").strip()
 
@@ -32,13 +39,14 @@ def adicionar_tarefa(tarefas):
         return
 
     tarefa = {
+        "id": obter_proximo_id(tarefas),
         "descricao": descricao,
         "concluida": False
     }
 
     tarefas.append(tarefa)
     salvar_tarefas(tarefas)
-    print("Tarefa adicionada com sucesso!")
+    print(f"Tarefa #{tarefa['id']} adicionada com sucesso!")
 
 
 def listar_tarefas(tarefas, filtro=None):
@@ -58,9 +66,17 @@ def listar_tarefas(tarefas, filtro=None):
             print("Nenhuma tarefa cadastrada.")
         return
 
-    for i, tarefa in enumerate(tarefas_filtradas, start=1):
-        status = "✔" if tarefa["concluida"] else "⏳"
-        print(f"{i}. [{status}] {tarefa['descricao']}")
+    for tarefa in tarefas_filtradas:
+        status = "✓" if tarefa["concluida"] else "⏳"
+        print(f"#{tarefa['id']} [{status}] {tarefa['descricao']}")
+
+
+def encontrar_tarefa_por_id(tarefas, id_tarefa):
+    """Encontra uma tarefa pelo ID"""
+    for tarefa in tarefas:
+        if tarefa["id"] == id_tarefa:
+            return tarefa
+    return None
 
 
 def concluir_tarefa(tarefas):
@@ -71,22 +87,24 @@ def concluir_tarefa(tarefas):
     listar_tarefas(tarefas)
 
     try:
-        indice = int(input("Digite o número da tarefa a concluir: ")) - 1
+        id_tarefa = int(input("Digite o ID da tarefa a concluir: "))
     except ValueError:
         print("Entrada inválida. Digite um número.")
         return
 
-    if indice < 0 or indice >= len(tarefas):
-        print("Número de tarefa inválido.")
+    tarefa = encontrar_tarefa_por_id(tarefas, id_tarefa)
+
+    if not tarefa:
+        print("Tarefa não encontrada.")
         return
 
-    if tarefas[indice]["concluida"]:
+    if tarefa["concluida"]:
         print("Essa tarefa já está concluída.")
         return
 
-    tarefas[indice]["concluida"] = True
+    tarefa["concluida"] = True
     salvar_tarefas(tarefas)
-    print("Tarefa marcada como concluída!")
+    print(f"Tarefa #{id_tarefa} marcada como concluída!")
 
 
 def remover_tarefa(tarefas):
@@ -97,18 +115,20 @@ def remover_tarefa(tarefas):
     listar_tarefas(tarefas)
 
     try:
-        indice = int(input("Digite o número da tarefa a remover: ")) - 1
+        id_tarefa = int(input("Digite o ID da tarefa a remover: "))
     except ValueError:
         print("Entrada inválida. Digite um número.")
         return
 
-    if indice < 0 or indice >= len(tarefas):
-        print("Número de tarefa inválido.")
+    tarefa = encontrar_tarefa_por_id(tarefas, id_tarefa)
+
+    if not tarefa:
+        print("Tarefa não encontrada.")
         return
 
-    tarefa_removida = tarefas.pop(indice)
+    tarefas.remove(tarefa)
     salvar_tarefas(tarefas)
-    print(f"Tarefa '{tarefa_removida['descricao']}' removida com sucesso!")
+    print(f"Tarefa #{id_tarefa} '{tarefa['descricao']}' removida com sucesso!")
 
 
 def editar_tarefa(tarefas):
@@ -119,16 +139,17 @@ def editar_tarefa(tarefas):
     listar_tarefas(tarefas)
 
     try:
-        indice = int(input("Digite o número da tarefa a editar: ")) - 1
+        id_tarefa = int(input("Digite o ID da tarefa a editar: "))
     except ValueError:
         print("Entrada inválida. Digite um número.")
         return
 
-    if indice < 0 or indice >= len(tarefas):
-        print("Número de tarefa inválido.")
+    tarefa = encontrar_tarefa_por_id(tarefas, id_tarefa)
+
+    if not tarefa:
+        print("Tarefa não encontrada.")
         return
 
-    tarefa_editada = tarefas[indice]
     nova_descricao = input(
         f"Nova descrição (ou Enter para cancelar): ").strip()
 
@@ -136,9 +157,10 @@ def editar_tarefa(tarefas):
         print("Edição cancelada.")
         return
 
-    tarefa_editada["descricao"] = nova_descricao
+    tarefa["descricao"] = nova_descricao
     salvar_tarefas(tarefas)
-    print(f"Tarefa editada com sucesso! Nova descrição: '{nova_descricao}'")
+    print(
+        f"Tarefa #{id_tarefa} editada com sucesso! Nova descrição: '{nova_descricao}'")
 
 
 def menu_listar_tarefas(tarefas):
