@@ -160,6 +160,46 @@ def remover_tarefa(tarefas):
     print(f"Tarefa #{id_tarefa} '{tarefa['descricao']}' removida com sucesso!")
 
 
+def remover_multiplas_tarefas(tarefas):
+    if len(tarefas) == 0:
+        print("Não há tarefas para remover.")
+        return
+
+    print("\nRemover múltiplas tarefas (Enter vazio para finalizar)")
+    print("=" * 40)
+    listar_tarefas(tarefas)
+    print("=" * 40)
+
+    contador = 0
+
+    while True:
+        entrada = input(f"Tarefa {contador + 1}: ").strip()
+
+        if entrada == "":
+            break
+
+        try:
+            id_tarefa = int(entrada)
+        except ValueError:
+            print("  → Entrada inválida. Digite um número ou Enter para finalizar.")
+            continue
+
+        tarefa = encontrar_tarefa_por_id(tarefas, id_tarefa)
+        if not tarefa:
+            print(f"  → Tarefa #{id_tarefa} não encontrada. Tente novamente.")
+            continue
+
+        tarefas.remove(tarefa)
+        contador += 1
+        print(f"  → Tarefa #{id_tarefa} removida!")
+
+    if contador > 0:
+        salvar_tarefas(tarefas)
+        print(f"\n{contador} tarefa(s) removida(s) com sucesso!")
+    else:
+        print("\nNenhuma tarefa foi removida.")
+
+
 def editar_tarefa(tarefas):
     if len(tarefas) == 0:
         print("Não há tarefas para editar.")
@@ -226,6 +266,7 @@ def menu():
     print("4 - Editar tarefa")
     print("5 - Listar tarefas")
     print("6 - Adicionar múltiplas tarefas")
+    print("7 - Remover múltiplas tarefas")
     print("0 - Sair")
     print("="*40)
 
@@ -250,6 +291,8 @@ def main():
                 menu_listar_tarefas(tarefas)
             case "6":
                 adicionar_multiplas_tarefas(tarefas)
+            case "7":
+                remover_multiplas_tarefas(tarefas)
             case "0":
                 salvar_tarefas(tarefas)
                 print("Saindo...")
