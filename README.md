@@ -1,23 +1,25 @@
 # Gerenciador de Tarefas em Python (CLI)
 
-Aplicação simples de linha de comando desenvolvida em Python para gerenciar tarefas, permitindo adicionar, listar e concluir tarefas com persistência em arquivo JSON.
+Aplicação de linha de comando desenvolvida em Python para gerenciar tarefas com sistema de identificação único, permitindo adicionar, listar, editar, concluir e remover tarefas com persistência em arquivo JSON.
 
-Este projeto foi criado com foco em praticar lógica de programação, manipulação de arquivos e organização de código em Python.
+Este projeto foi criado com foco em praticar lógica de programação, manipulação de arquivos, estruturas de dados e organização de código em Python.
 
 ---
 
 ## Funcionalidades
 
+- **Sistema de IDs únicos**: Cada tarefa recebe um ID permanente e exclusivo
 - Adicionar novas tarefas
-- Remover tarefas
+- Remover tarefas por ID
 - Marcar tarefas como concluídas
-- Editar tarefas
+- Editar descrição de tarefas existentes
 - Listar tarefas com filtros por status:
   - Listar todas as tarefas
   - Listar somente tarefas concluídas
   - Listar somente tarefas pendentes
 - Persistência de dados em arquivo JSON
 - Interface simples via terminal (CLI) com menu hierárquico
+- IDs permanentes que não mudam mesmo após remoções
 
 ---
 
@@ -81,7 +83,35 @@ LISTAR TAREFAS
 ========================================
 ```
 
-As tarefas são salvas automaticamente no arquivo tarefas.json.
+### Visualização de Tarefas
+
+As tarefas são exibidas com seus IDs únicos e status visual:
+
+```text
+#1 [✓] Comprar leite
+#5 [⏳] Estudar Python
+#12 [⏳] Fazer exercícios
+```
+
+**Nota:** O ID é permanente - se você remover a tarefa #5, ela nunca mais será reutilizada. A próxima tarefa criada será #13.
+
+As tarefas são salvas automaticamente no arquivo `tarefas.json`.
+
+---
+
+## Sistema de IDs
+
+Este gerenciador utiliza um sistema de identificação único para cada tarefa:
+
+- **IDs são incrementais**: A primeira tarefa é #1, a segunda #2, e assim por diante
+- **IDs são permanentes**: Uma vez atribuído, o ID nunca muda
+- **IDs nunca são reutilizados**: Se você remover a tarefa #50, nenhuma tarefa futura receberá o ID #50
+- **Operações usam IDs**: Todas as ações (editar, remover, concluir) são feitas através do ID da tarefa
+
+Este sistema garante:
+- Não há confusão ao filtrar tarefas
+- Referências às tarefas são sempre corretas
+- Facilita futuras implementações (datas, prioridades, etc.)
 
 ---
 
@@ -93,9 +123,12 @@ As tarefas são salvas automaticamente no arquivo tarefas.json.
 - Validação de entrada do usuário
 - Uso de estruturas de dados como listas e dicionários
 - Controle de fluxo em aplicações CLI
-- Uso de `match/case` como alternativa moderna a `if/elif/else`
+- Uso de `match/case` (Python 3.10+) como alternativa moderna a `if/elif/else`
 - Implementação de menus hierárquicos e submenus
 - Filtragem de dados com list comprehensions
+- Sistema de identificação única (IDs) para registros
+- Busca e manipulação de dados por identificador
+- Resolução de bugs relacionados a índices vs identificadores
 - Workflow profissional com Git (branches, commits, pull requests)
 
 ---
@@ -103,9 +136,14 @@ As tarefas são salvas automaticamente no arquivo tarefas.json.
 ## Possíveis melhorias futuras
 
 - Adicionar, remover ou concluir múltiplas tarefas de uma só vez
-- Interface gráfica ou versão web
+- Adicionar timestamps (data/hora de criação e conclusão)
+- Priorização de tarefas
+- Categorias ou tags
 - Busca de tarefas por descrição
-- Ordenação de tarefas (por data, status, etc.)
+- Ordenação de tarefas (por data, status, prioridade)
+- Função de reenumerar IDs (resetar para 1, 2, 3...)
+- Interface gráfica (GUI) ou versão web
+- Integração com IA para gerenciamento inteligente de tarefas
 
 ---
 
