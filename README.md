@@ -14,6 +14,7 @@ Este projeto foi criado com foco em praticar lógica de programação, manipula�
 
 - **Sistema de IDs únicos**: Cada tarefa recebe um ID permanente e exclusivo
 - Adicionar novas tarefas
+- Adicionar múltiplas tarefas em sequência
 - Remover tarefas por ID
 - Marcar tarefas como concluídas
 - Editar descrição de tarefas existentes
@@ -68,6 +69,7 @@ python main.py
 3 - Concluir tarefa
 4 - Editar tarefa
 5 - Listar tarefas
+6- Adicionar múltiplas tarefas
 0 - Sair
 ========================================
 ```
@@ -146,7 +148,7 @@ Este projeto está em desenvolvimento ativo seguindo um roadmap planejado para d
 ### Em Desenvolvimento
 
 #### v3.0 - Operações em Lote
-- Adicionar múltiplas tarefas de uma vez
+- ✓ Adicionar múltiplas tarefas de uma vez
 - Remover múltiplas tarefas por lista de IDs
 - Concluir múltiplas tarefas simultaneamente
 - Limpar todas as tarefas concluídas

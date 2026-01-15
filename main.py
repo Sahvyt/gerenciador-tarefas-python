@@ -49,6 +49,35 @@ def adicionar_tarefa(tarefas):
     print(f"Tarefa #{tarefa['id']} adicionada com sucesso!")
 
 
+def adicionar_multiplas_tarefas(tarefas):
+    print("\nAdicionar múltiplas tarefas (Enter vazio para finalizar)")
+    print("=" * 40)
+
+    contador = 0
+
+    while True:
+        descricao = input(f"Tarefa {contador + 1}: ").strip()
+
+        if descricao == "":
+            break
+
+        tarefa = {
+            "id": obter_proximo_id(tarefas),
+            "descricao": descricao,
+            "concluida": False
+        }
+
+        tarefas.append(tarefa)
+        contador += 1
+        print(f"  → Tarefa #{tarefa['id']} adicionada!")
+
+    if contador > 0:
+        salvar_tarefas(tarefas)
+        print(f"\n{contador} tarefa(s) adicionada(s) com sucesso!")
+    else:
+        print("\nNenhuma tarefa foi adicionada.")
+
+
 def listar_tarefas(tarefas, filtro=None):
     tarefas_filtradas = tarefas
 
@@ -196,6 +225,7 @@ def menu():
     print("3 - Concluir tarefa")
     print("4 - Editar tarefa")
     print("5 - Listar tarefas")
+    print("6 - Adicionar múltiplas tarefas")
     print("0 - Sair")
     print("="*40)
 
@@ -218,6 +248,8 @@ def main():
                 editar_tarefa(tarefas)
             case "5":
                 menu_listar_tarefas(tarefas)
+            case "6":
+                adicionar_multiplas_tarefas(tarefas)
             case "0":
                 salvar_tarefas(tarefas)
                 print("Saindo...")
