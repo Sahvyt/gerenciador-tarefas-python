@@ -239,7 +239,7 @@ Desenvolver um gerenciador de tarefas completo e escalável que evolui desde uma
 - **Flask/FastAPI** - Backend web (v5.0)
 - **HTML/CSS/JavaScript** - Frontend web (v5.0+)
 - **Tailwind CSS** - Framework CSS moderno (v6.0)
-- **Claude/OpenAI API** - Integração com IA (v7.0)
+- **OpenAI API** - Integração com IA (v7.0)
 
 ---
 
