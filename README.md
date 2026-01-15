@@ -1,7 +1,7 @@
 # Gerenciador de Tarefas em Python (CLI)
 
 ![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
-![Versão](https://img.shields.io/badge/versão-2.1.1-blue)
+![Versão](https://img.shields.io/badge/versão-2.1.2-blue)
 ![Python](https://img.shields.io/badge/python-3.10+-green)
 
 Aplicação de linha de comando desenvolvida em Python para gerenciar tarefas com sistema de identificação único, permitindo adicionar, listar, editar, concluir e remover tarefas com persistência em arquivo JSON.
@@ -16,6 +16,7 @@ Este projeto foi criado com foco em praticar lógica de programação, manipula�
 - Adicionar novas tarefas
 - Adicionar múltiplas tarefas em sequência
 - Remover tarefas por ID
+- Remover múltiplas tarefas em sequência
 - Marcar tarefas como concluídas
 - Editar descrição de tarefas existentes
 - Listar tarefas com filtros por status:
@@ -69,7 +70,8 @@ python main.py
 3 - Concluir tarefa
 4 - Editar tarefa
 5 - Listar tarefas
-6- Adicionar múltiplas tarefas
+6 - Adicionar múltiplas tarefas
+7 - Remover múltiplas tarefas
 0 - Sair
 ========================================
 ```
@@ -149,7 +151,7 @@ Este projeto está em desenvolvimento ativo seguindo um roadmap planejado para d
 
 #### v3.0 - Operações em Lote
 - ✓ Adicionar múltiplas tarefas de uma vez
-- Remover múltiplas tarefas por lista de IDs
+- ✓ Remover múltiplas tarefas por lista de IDs
 - Concluir múltiplas tarefas simultaneamente
 - Limpar todas as tarefas concluídas
 - Submenu para operações em lote
