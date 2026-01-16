@@ -1,5 +1,6 @@
 import json
 import os
+from typing import Any
 
 CAMINHO_ARQUIVO = os.path.join(os.path.dirname(__file__), "tarefas.json")
 
@@ -358,6 +359,66 @@ def editar_tarefa(tarefas):
         tarefa["descricao"] = descricao_antiga
 
 
+def limpar_tarefas_concluidas(tarefas):
+    if len(tarefas) == 0:
+        print("Não há tarefas para limpar.")
+        return
+
+    print("\nLimpar tarefas concluídas")
+    print("="*40)
+    listar_tarefas(tarefas, filtro="concluidas")
+    print("="*40)
+
+    resposta = input(
+        "Deseja limpar todas as tarefas concluídas? (s/n): ").strip().lower()
+
+    if resposta == "s":
+        for tarefa in tarefas:
+            if tarefa.get("concluida", False):
+                tarefas.remove(tarefa)
+        if salvar_tarefas(tarefas):
+            print("Tarefas concluídas limpas com sucesso!")
+        else:
+            print(
+                "Erro: As tarefas foram removidas da lista, mas não foi possível salvar no arquivo.")
+            for tarefa in tarefas:
+                if tarefa.get("concluida", False):
+                    tarefas.append(tarefa)
+    else:
+        print("Operação cancelada.")
+
+
+def reordenar_tarefas(tarefas):
+    if len(tarefas) == 0:
+        print("Não há tarefas para reordenar.")
+        return
+
+    print("\nReordenar tarefas")
+    print("="*40)
+    listar_tarefas(tarefas)
+    print("="*40)
+
+    resposta = input(
+        "Deseja reordenar todas as tarefas? (s/n): ").strip().lower()
+
+    if resposta == "s":
+        ids_antigos = []
+
+        for i, tarefa in enumerate(tarefas, start=1):
+            ids_antigos.append(tarefa["id"])
+            tarefa["id"] = i
+        if salvar_tarefas(tarefas):
+            print("Tarefas reordenadas com sucesso!")
+        else:
+            print(
+                "Erro: As tarefas foram reordenadas, mas não foi possível salvar no arquivo.")
+            i = 0
+            for tarefa, id_antigo in zip(tarefas, ids_antigos):
+                tarefa["id"] = id_antigo
+    else:
+        print("Operação cancelada.")
+
+
 def menu_listar_tarefas(tarefas):
     while True:
         print("\n" + "="*40)
@@ -384,6 +445,38 @@ def menu_listar_tarefas(tarefas):
                 print("Opção inválida.")
 
 
+def menu_gerenciar_tarefas(tarefas):
+    while True:
+        print("\n" + "="*40)
+        print("GERENCIAR TAREFAS")
+        print("="*40)
+        print("1 - Adicionar múltiplas tarefas")
+        print("2 - Remover múltiplas tarefas")
+        print("3 - Concluir múltiplas tarefas")
+        print("4 - Limpar tarefas concluídas")
+        print("5 - Reordenar tarefas")
+        print("0 - Voltar ao menu principal")
+        print("="*40)
+
+        opcao = input("Escolha uma opção: ")
+
+        match opcao:
+            case "1":
+                adicionar_multiplas_tarefas(tarefas)
+            case "2":
+                remover_multiplas_tarefas(tarefas)
+            case "3":
+                concluir_multiplas_tarefas(tarefas)
+            case "4":
+                limpar_tarefas_concluidas(tarefas)
+            case "5":
+                reordenar_tarefas(tarefas)
+            case "0":
+                break
+            case _:
+                print("Opção inválida.")
+
+
 def menu():
     print("\n" + "="*40)
     print("1 - Adicionar tarefa")
@@ -391,9 +484,7 @@ def menu():
     print("3 - Concluir tarefa")
     print("4 - Editar tarefa")
     print("5 - Listar tarefas")
-    print("6 - Adicionar múltiplas tarefas")
-    print("7 - Remover múltiplas tarefas")
-    print("8 - Concluir múltiplas tarefas")
+    print("6 - Gerenciar múltiplas tarefas")
     print("0 - Sair")
     print("="*40)
 
@@ -417,11 +508,7 @@ def main():
             case "5":
                 menu_listar_tarefas(tarefas)
             case "6":
-                adicionar_multiplas_tarefas(tarefas)
-            case "7":
-                remover_multiplas_tarefas(tarefas)
-            case "8":
-                concluir_multiplas_tarefas(tarefas)
+                menu_gerenciar_tarefas(tarefas)
             case "0":
                 if salvar_tarefas(tarefas):
                     print("Saindo...")
