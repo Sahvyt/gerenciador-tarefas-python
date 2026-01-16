@@ -4,7 +4,7 @@
 ![Versão](https://img.shields.io/badge/versão-3.0.2-blue)
 ![Python](https://img.shields.io/badge/python-3.10+-green)
 
-Aplicação de linha de comando (CLI) desenvolvida em Python para gerenciamento de tarefas, com **IDs únicos e permanentes**, **operações em lote** e **persistência em arquivo JSON**.
+Aplicação de linha de comando (CLI) desenvolvida em Python para gerenciamento de tarefas.
 
 Projeto focado em praticar fundamentos sólidos de programação, organização de código e tratamento de erros em aplicações CLI.
 
@@ -70,10 +70,11 @@ As operações em lote permitem múltiplas entradas em sequência, com validaç�
 ### Modularização
 
 O código foi modularizado para separar responsabilidades:
-    - ```main.py```: interface e fluxo do programa
-    - ```tasks.py```: regras de negócio
-    - ```storage.py```: persistência em arquivo JSON
-    - ```models.py```: validações e utilitários
+
+    - main.py: interface e fluxo do programa
+    - tasks.py: regras de negócio
+    - storage.py: persistência em arquivo JSON
+    - models.py: validações e utilitários
 ---
 
 ## Roadmap
