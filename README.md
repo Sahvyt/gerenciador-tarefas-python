@@ -1,7 +1,7 @@
 # Gerenciador de Tarefas em Python (CLI)
 
 ![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
-![Versão](https://img.shields.io/badge/versão-3.0.0-blue)
+![Versão](https://img.shields.io/badge/versão-3.0.1-blue)
 ![Python](https://img.shields.io/badge/python-3.10+-green)
 
 Aplicação de linha de comando (CLI) desenvolvida em Python para gerenciamento de tarefas, com **IDs únicos e permanentes**, **operações em lote** e **persistência em arquivo JSON**.
@@ -12,7 +12,7 @@ Projeto focado em praticar fundamentos sólidos de programação, organização 
 
 ## Funcionalidades
 
-* Sistema de IDs únicos, incrementais e não reutilizáveis
+* Sistema de IDs únicos, incrementais e reutilizáveis
 * Adição, edição, conclusão e remoção de tarefas por ID
 * Operações em lote (adicionar, remover e concluir múltiplas tarefas)
 * Listagem de tarefas (todas, concluídas ou pendentes)
@@ -44,7 +44,7 @@ python main.py
 #12 [⏳] Fazer exercícios
 ```
 
-Os IDs são permanentes e nunca reutilizados, mesmo após remoções.
+Os IDs são permanentes e reutilizados somente através da operação "Reordenar tarefas"
 
 ---
 
@@ -53,6 +53,7 @@ Os IDs são permanentes e nunca reutilizados, mesmo após remoções.
 ### IDs permanentes
 
 Os IDs não dependem da posição da tarefa na lista. Eles são sempre calculados a partir do maior ID existente, evitando bugs comuns causados por índices e garantindo consistência após remoções.
+    - Reordenação implementada, evitando o crescimento contínuo dos IDs.
 
 ### Persistência em JSON
 
