@@ -1,7 +1,7 @@
 # Task Manager in Python (CLI)
 
 ![Status](https://img.shields.io/badge/status-in%20development-yellow)
-![Version](https://img.shields.io/badge/version-3.0.2-blue)
+![Version](https://img.shields.io/badge/version-3.1.0-blue)
 ![Python](https://img.shields.io/badge/python-3.10+-green)
 
 Command-line interface (CLI) application developed in Python for task management.
