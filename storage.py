@@ -1,6 +1,6 @@
 import json
 import os
-from models import validate_task_structure
+from models import validate_task_structure, get_current_timestamp
 
 FILE_PATH = os.path.join(os.path.dirname(__file__), "tasks.json")
 
@@ -14,16 +14,35 @@ def load_tasks():
             data = json.load(file)
 
         if not isinstance(data, list):
-            print("Error: The tasks file does not contain a valid list. Creating a new one.")
+            print(
+                "Error: The tasks file does not contain a valid list. Creating a new one."
+            )
             return []
 
-        valid_tasks = [task for task in data if validate_task_structure(task)]
-        invalid_tasks = len(data) - len(valid_tasks)
+        normalized_tasks = []
+        ignored = 0
 
-        if invalid_tasks > 0:
-            print(f"Warning: {invalid_tasks} task(s) with an invalid structure were ignored.")
+        for task in data:
+            if not isinstance(task, dict):
+                ignored += 1
+                continue
 
-        return valid_tasks
+            task.setdefault("completed", False)
+            task.setdefault("created_at", get_current_timestamp())
+            task.setdefault("completed_at", None)
+
+            if validate_task_structure(task):
+                normalized_tasks.append(task)
+            else:
+                ignored += 1
+
+        if ignored > 0:
+            print(
+                f"Warning: {ignored} task(s) with invalid structure were ignored."
+            )
+
+        return normalized_tasks
+
     except (json.JSONDecodeError, IOError) as e:
         print(f"Error while loading tasks: {e}")
         return []

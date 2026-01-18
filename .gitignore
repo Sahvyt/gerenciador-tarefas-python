@@ -4,13 +4,15 @@ __pycache__/
 *$py.class
 
 # Data
-tarefas.json
+tasks.json
 
 # Virtual environments
 venv/
 env/
 ENV/
 .Python
+.env
+.env.*
 
 # Editors / IDEs
 .vscode/
@@ -23,6 +25,7 @@ Thumbs.db
 # Temp files
 *.swp
 *.swo
+*.log
 
 # Testing / build (future-proof)
 .pytest_cache/

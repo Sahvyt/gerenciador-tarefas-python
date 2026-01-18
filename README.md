@@ -6,7 +6,8 @@
 
 Command-line interface (CLI) application developed in Python for task management.
 
-This project focuses on practicing solid programming fundamentals, code organization, and error handling in CLI applications.
+This project was designed to practice solid programming fundamentals, clean code organization, and robust error handling in CLI applications.
+
 
 ---
 
@@ -19,6 +20,8 @@ This project focuses on practicing solid programming fundamentals, code organiza
 * Automatic persistence using a JSON file
 * Data validation when loading tasks
 * Simple terminal-based interface
+* Task creation and completion timestamps
+
 
 ---
 
@@ -27,6 +30,7 @@ This project focuses on practicing solid programming fundamentals, code organiza
 ### Requirements
 
 * Python 3.10 or higher
+> This project uses Python 3.10+ due to structural pattern matching (`match/case`).
 
 ### How to run
 

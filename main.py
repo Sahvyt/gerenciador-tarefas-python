@@ -26,7 +26,7 @@ def main():
 
     while True:
         show_menu()
-        option = input("Choose an option: ")
+        option = input("Choose an option: ").strip()
 
         match option:
             case "1":
@@ -46,7 +46,8 @@ def main():
                     print("Exiting...")
                 else:
                     print("Warning: Unable to save changes before exiting.")
-                    response = input("Do you want to exit anyway? (y/n): ").strip().lower()
+                    response = input(
+                        "Do you want to exit anyway? (y/n): ").strip().lower()
                     if response == "y":
                         print("Exiting...")
                     else:
