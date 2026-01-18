@@ -1,41 +1,43 @@
 import json
 import os
-from models import validar_estrutura_tarefa
+from models import validate_task_structure
 
-CAMINHO_ARQUIVO = os.path.join(os.path.dirname(__file__), "tarefas.json")
+FILE_PATH = os.path.join(os.path.dirname(__file__), "tasks.json")
 
 
-def carregar_tarefas():
-    if not os.path.exists(CAMINHO_ARQUIVO):
+def load_tasks():
+    if not os.path.exists(FILE_PATH):
         return []
 
     try:
-        with open(CAMINHO_ARQUIVO, "r", encoding="utf-8") as arquivo:
-            dados = json.load(arquivo)
+        with open(FILE_PATH, "r", encoding="utf-8") as file:
+            data = json.load(file)
 
-        if not isinstance(dados, list):
+        if not isinstance(data, list):
             print(
-                "Erro: O arquivo de tarefas não contém uma lista válida. Criando nova lista.")
+                "Error: The tasks file does not contain a valid list. Creating a new one."
+            )
             return []
 
-        tarefas_validas = [t for t in dados if validar_estrutura_tarefa(t)]
-        tarefas_invalidas = len(dados) - len(tarefas_validas)
+        valid_tasks = [task for task in data if validate_task_structure(task)]
+        invalid_tasks = len(data) - len(valid_tasks)
 
-        if tarefas_invalidas > 0:
+        if invalid_tasks > 0:
             print(
-                f"Aviso: {tarefas_invalidas} tarefa(s) com estrutura inválida foram ignoradas.")
+                f"Warning: {invalid_tasks} task(s) with an invalid structure were ignored."
+            )
 
-        return tarefas_validas
+        return valid_tasks
     except (json.JSONDecodeError, IOError) as e:
-        print(f"Erro ao carregar tarefas: {e}")
+        print(f"Error while loading tasks: {e}")
         return []
 
 
-def salvar_tarefas(tarefas):
+def save_tasks(tasks):
     try:
-        with open(CAMINHO_ARQUIVO, "w", encoding="utf-8") as arquivo:
-            json.dump(tarefas, arquivo, indent=4, ensure_ascii=False)
+        with open(FILE_PATH, "w", encoding="utf-8") as file:
+            json.dump(tasks, file, indent=4, ensure_ascii=False)
         return True
     except IOError as e:
-        print(f"Erro ao salvar tarefas: {e}")
+        print(f"Error while saving tasks: {e}")
         return False
