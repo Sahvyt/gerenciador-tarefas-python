@@ -1,62 +1,64 @@
-from storage import carregar_tarefas, salvar_tarefas
+from storage import load_tasks, save_tasks
 from tasks import (
-    adicionar_tarefa,
-    remover_tarefa,
-    concluir_tarefa,
-    editar_tarefa,
-    menu_listar_tarefas,
-    menu_gerenciar_tarefas
+    add_task,
+    remove_task,
+    complete_task,
+    edit_task,
+    list_tasks_menu,
+    manage_tasks_menu
 )
 
 
-def menu():
-    print("\n" + "="*40)
-    print("1 - Adicionar tarefa")
-    print("2 - Remover tarefa")
-    print("3 - Concluir tarefa")
-    print("4 - Editar tarefa")
-    print("5 - Listar tarefas")
-    print("6 - Gerenciar múltiplas tarefas")
-    print("0 - Sair")
-    print("="*40)
+def show_menu():
+    print("\n" + "=" * 40)
+    print("1 - Add task")
+    print("2 - Remove task")
+    print("3 - Complete task")
+    print("4 - Edit task")
+    print("5 - List tasks")
+    print("6 - Manage multiple tasks")
+    print("0 - Exit")
+    print("=" * 40)
 
 
 def main():
-    tarefas = carregar_tarefas()
+    tasks = load_tasks()
 
     while True:
-        menu()
-        opcao = input("Escolha uma opção: ")
+        show_menu()
+        option = input("Choose an option: ")
 
-        match opcao:
+        match option:
             case "1":
-                adicionar_tarefa(tarefas)
+                add_task(tasks)
             case "2":
-                remover_tarefa(tarefas)
+                remove_task(tasks)
             case "3":
-                concluir_tarefa(tarefas)
+                complete_task(tasks)
             case "4":
-                editar_tarefa(tarefas)
+                edit_task(tasks)
             case "5":
-                menu_listar_tarefas(tarefas)
+                list_tasks_menu(tasks)
             case "6":
-                menu_gerenciar_tarefas(tarefas)
+                manage_tasks_menu(tasks)
             case "0":
-                if salvar_tarefas(tarefas):
-                    print("Saindo...")
+                if save_tasks(tasks):
+                    print("Exiting...")
                 else:
-                    print("Aviso: Não foi possível salvar as alterações antes de sair.")
-                    resposta = input(
-                        "Deseja sair mesmo assim? (s/n): ").strip().lower()
-                    if resposta == "s":
-                        print("Saindo...")
+                    print("Warning: Unable to save changes before exiting.")
+                    response = input(
+                        "Do you want to exit anyway? (y/n): "
+                    ).strip().lower()
+                    if response == "y":
+                        print("Exiting...")
                     else:
                         print(
-                            "Operação cancelada. As alterações ainda não foram salvas.")
+                            "Operation cancelled. Changes have not been saved yet."
+                        )
                         continue
                 break
             case _:
-                print("Opção inválida.")
+                print("Invalid option.")
 
 
 if __name__ == "__main__":
