@@ -14,18 +14,14 @@ def load_tasks():
             data = json.load(file)
 
         if not isinstance(data, list):
-            print(
-                "Error: The tasks file does not contain a valid list. Creating a new one."
-            )
+            print("Error: The tasks file does not contain a valid list. Creating a new one.")
             return []
 
         valid_tasks = [task for task in data if validate_task_structure(task)]
         invalid_tasks = len(data) - len(valid_tasks)
 
         if invalid_tasks > 0:
-            print(
-                f"Warning: {invalid_tasks} task(s) with an invalid structure were ignored."
-            )
+            print(f"Warning: {invalid_tasks} task(s) with an invalid structure were ignored.")
 
         return valid_tasks
     except (json.JSONDecodeError, IOError) as e:
