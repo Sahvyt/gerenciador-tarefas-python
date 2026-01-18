@@ -5,7 +5,7 @@ from tasks import (
     complete_task,
     edit_task,
     list_tasks_menu,
-    manage_tasks_menu
+    manage_tasks_menu,
 )
 
 
@@ -46,15 +46,11 @@ def main():
                     print("Exiting...")
                 else:
                     print("Warning: Unable to save changes before exiting.")
-                    response = input(
-                        "Do you want to exit anyway? (y/n): "
-                    ).strip().lower()
+                    response = input("Do you want to exit anyway? (y/n): ").strip().lower()
                     if response == "y":
                         print("Exiting...")
                     else:
-                        print(
-                            "Operation cancelled. Changes have not been saved yet."
-                        )
+                        print("Operation cancelled. Changes have not been saved yet.")
                         continue
                 break
             case _:
