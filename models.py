@@ -1,27 +1,30 @@
-def validar_estrutura_tarefa(tarefa):
-    if not isinstance(tarefa, dict):
+def validate_task_structure(task):
+    if not isinstance(task, dict):
         return False
-    return all(key in tarefa for key in ["id", "descricao", "concluida"])
+    return all(key in task for key in ["id", "description", "completed"])
 
 
-def obter_proximo_id(tarefas):
-    if not tarefas:
+def get_next_id(tasks):
+    if not tasks:
         return 1
 
     try:
-        ids_validos = [tarefa.get("id") for tarefa in tarefas if validar_estrutura_tarefa(
-            tarefa) and isinstance(tarefa.get("id"), int)]
+        valid_ids = [
+            task.get("id")
+            for task in tasks
+            if validate_task_structure(task) and isinstance(task.get("id"), int)
+        ]
 
-        if not ids_validos:
+        if not valid_ids:
             return 1
 
-        return max(ids_validos) + 1
+        return max(valid_ids) + 1
     except (ValueError, TypeError):
         return 1
 
 
-def encontrar_tarefa_por_id(tarefas, id_tarefa):
-    for tarefa in tarefas:
-        if validar_estrutura_tarefa(tarefa) and tarefa.get("id") == id_tarefa:
-            return tarefa
+def find_task_by_id(tasks, task_id):
+    for task in tasks:
+        if validate_task_structure(task) and task.get("id") == task_id:
+            return task
     return None
