@@ -1,16 +1,33 @@
-tarefas.json
+# Runtime
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
-.Python
+
+# Data
+tarefas.json
+
+# Virtual environments
 venv/
 env/
 ENV/
+.Python
+
+# Editors / IDEs
 .vscode/
 .idea/
-*.swp
-*.swo
+
+# OS
 .DS_Store
 Thumbs.db
 
+# Temp files
+*.swp
+*.swo
+
+# Testing / build (future-proof)
+.pytest_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
