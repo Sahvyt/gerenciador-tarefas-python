@@ -1,34 +1,34 @@
-# Gerenciador de Tarefas em Python (CLI)
+# Task Manager in Python (CLI)
 
-![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
-![Versão](https://img.shields.io/badge/versão-3.0.2-blue)
+![Status](https://img.shields.io/badge/status-in%20development-yellow)
+![Version](https://img.shields.io/badge/version-3.0.2-blue)
 ![Python](https://img.shields.io/badge/python-3.10+-green)
 
-Aplicação de linha de comando (CLI) desenvolvida em Python para gerenciamento de tarefas.
+Command-line interface (CLI) application developed in Python for task management.
 
-Projeto focado em praticar fundamentos sólidos de programação, organização de código e tratamento de erros em aplicações CLI.
-
----
-
-## Funcionalidades
-
-* Sistema de IDs únicos, incrementais e reutilizáveis
-* Adição, edição, conclusão e remoção de tarefas por ID
-* Operações em lote (adicionar, remover e concluir múltiplas tarefas)
-* Listagem de tarefas (todas, concluídas ou pendentes)
-* Persistência automática em arquivo JSON
-* Validação de dados ao carregar tarefas
-* Interface simples via terminal
+This project focuses on practicing solid programming fundamentals, code organization, and error handling in CLI applications.
 
 ---
 
-## Execução
+## Features
 
-### Requisitos
+* Unique, incremental, and reusable ID system
+* Add, edit, complete, and remove tasks by ID
+* Batch operations (add, remove, and complete multiple tasks)
+* Task listing (all, completed, or pending)
+* Automatic persistence using a JSON file
+* Data validation when loading tasks
+* Simple terminal-based interface
 
-* Python 3.10 ou superior
+---
 
-### Como rodar
+## Running the Project
+
+### Requirements
+
+* Python 3.10 or higher
+
+### How to run
 
 ```bash
 python main.py
@@ -36,59 +36,61 @@ python main.py
 
 ---
 
-## Exemplo de uso
+## Example usage
 
 ```text
-#1 [✓] Comprar leite
-#5 [⏳] Estudar Python
-#12 [⏳] Fazer exercícios
+#1 [✓] Buy milk
+#5 [⏳] Study Python
+#12 [⏳] Do exercises
 ```
 
-Os IDs são permanentes e reutilizados somente através da operação "Reordenar tarefas"
+IDs are permanent and only reused through the "Reorder tasks" operation.
 
 ---
 
-## Decisões Técnicas
+## Technical Decisions
 
-### IDs permanentes
+### Permanent IDs
 
-Os IDs não dependem da posição da tarefa na lista. Eles são sempre calculados a partir do maior ID existente, evitando bugs comuns causados por índices e garantindo consistência após remoções.
-    - Reordenação implementada, evitando o crescimento contínuo dos IDs.
+Task IDs do not depend on the task's position in the list. They are always calculated based on the highest existing ID, avoiding common bugs caused by list indices and ensuring consistency after removals.
 
-### Persistência em JSON
+* Reordering is implemented to prevent continuous ID growth.
 
-O JSON foi escolhido por ser simples, legível e adequado para uma aplicação CLI. Ao carregar o arquivo, apenas tarefas com estrutura válida são consideradas.
+### JSON persistence
 
-### Rollback em caso de erro
+JSON was chosen for being simple, readable, and well-suited for a CLI application. When loading the file, only tasks with a valid structure are considered.
 
-Sempre que uma operação altera o estado das tarefas, o salvamento é tentado imediatamente. Caso o salvamento falhe, o estado anterior é restaurado em memória, evitando inconsistências entre a lista e o arquivo.
+### Rollback on error
 
-### Operações em lote interativas
+Whenever an operation changes the task state, the application immediately attempts to save the data. If saving fails, the previous in-memory state is restored, preventing inconsistencies between the task list and the file.
 
-As operações em lote permitem múltiplas entradas em sequência, com validação individual e possibilidade de encerramento a qualquer momento.
+### Interactive batch operations
 
-### Modularização
+Batch operations allow multiple inputs in sequence, with individual validation and the option to stop at any time.
 
-O código foi modularizado para separar responsabilidades:
+### Modularization
 
-    - main.py: interface e fluxo do programa
-    - tasks.py: regras de negócio
-    - storage.py: persistência em arquivo JSON
-    - models.py: validações e utilitários
+The codebase was modularized to separate responsibilities:
+
+* `main.py`: application flow and user interface
+* `tasks.py`: business logic
+* `storage.py`: JSON file persistence
+* `models.py`: validations and utilities
+
 ---
 
 ## Roadmap
 
-* v1.0: CLI básico com persistência
-* v2.0: Sistema de IDs únicos
-* v2.1: Filtros e edição de tarefas
-* v3.0: Operações em lote
-* v4.0: Interface desktop
-* v5.0: Versão web
+* v1.0: Basic CLI with persistence
+* v2.0: Unique ID system
+* v2.1: Task filtering and editing
+* v3.0: Batch operations
+* v4.0: Desktop interface
+* v5.0: Web version
 
 ---
 
-## Tecnologias
+## Technologies
 
 * Python 3.10+
 * JSON
@@ -96,13 +98,13 @@ O código foi modularizado para separar responsabilidades:
 
 ---
 
-## Autor
+## Author
 
 **Kauan Melo**
 [GitHub](https://github.com/Sahvyt) • [LinkedIn](https://www.linkedin.com/in/kauan-melo-8b72a0305/)
 
 ---
 
-## Licença
+## License
 
-Projeto open-source com fins educacionais.
+Open-source project for educational purposes.
