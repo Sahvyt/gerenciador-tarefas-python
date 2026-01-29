@@ -14,7 +14,8 @@ def add_task(tasks):
         "description": description,
         "completed": False,
         "created_at": get_current_timestamp(),
-        "completed_at": None
+        "completed_at": None,
+        "priority": False
     }
 
     tasks.append(task)
@@ -42,7 +43,8 @@ def add_multiple_tasks(tasks):
             "description": description,
             "completed": False,
             "created_at": get_current_timestamp(),
-            "completed_at": None
+            "completed_at": None,
+            "priority": False
         }
 
         tasks.append(task)
@@ -121,7 +123,34 @@ def list_tasks(tasks, filter_by=None):
 
     for task in filtered_tasks:
         status = "✓" if task.get("completed", False) else "⏳"
-        print(f"#{task['id']} [{status}] {task['description']}")
+        star = " ⭐" if task.get("priority", False) else ""
+        print(f"#{task['id']} [{status}] {task['description']}{star}")
+
+
+def list_focus_tasks(tasks):
+    valid_tasks = [t for t in tasks if validate_task_structure(t)]
+
+    pending = [t for t in valid_tasks if not t.get("completed", False)]
+
+    if not pending:
+        print("No pending tasks found.")
+        return
+
+    pending.sort(key=lambda t: t["created_at"])
+
+    priority_tasks = [t for t in pending if t.get("priority", False)]
+    non_priority_tasks = [t for t in pending if not t.get("priority", False)]
+
+    focus_list = priority_tasks[:7]
+
+    if len(focus_list) < 7:
+        remaining_slots = 7 - len(focus_list)
+        focus_list.extend(non_priority_tasks[:remaining_slots])
+
+    for task in focus_list:
+        status = "⏳"
+        star = " ⭐" if task.get("priority", False) else ""
+        print(f"#{task['id']} [{status}] {task['description']}{star}")
 
 
 def complete_task(tasks):
@@ -214,6 +243,69 @@ def complete_multiple_tasks(tasks):
                     task["completed_at"] = None
     else:
         print("\nNo tasks were completed.")
+
+
+def toggle_priority(tasks):
+    if not tasks:
+        print("There are no tasks to prioritize.")
+        return
+
+    print("\nPrioritize tasks (empty Enter to finish)")
+    print("=" * 40)
+    list_tasks(tasks)
+    print("=" * 40)
+
+    count = 0
+    prioritized_ids = []
+
+    while True:
+        entry = input(
+            "Enter the task ID (or press Enter to finish): "
+        ).strip()
+
+        if entry == "":
+            break
+
+        try:
+            task_id = int(entry)
+        except ValueError:
+            print("  → Invalid input. Please enter a number.")
+            continue
+
+        task = find_task_by_id(tasks, task_id)
+        if not task:
+            print(f"  → Task #{task_id} not found.")
+            continue
+
+        if task.get("completed", False):
+            print("  → Cannot prioritize a completed task.")
+            continue
+
+        old_priority = task.get("priority", False)
+        task["priority"] = not old_priority
+
+        prioritized_ids.append((task_id, old_priority))
+        count += 1
+
+        if task["priority"]:
+            print(f"  → Task #{task_id} marked as priority!")
+        else:
+            print(f"  → Task #{task_id} removed from priority.")
+
+    if count > 0:
+        if save_tasks(tasks):
+            print(f"\n{count} task(s) updated successfully")
+        else:
+            print(
+                f"\nError: {count} task(s) were updated, but could not be saved."
+            )
+            for task_id, old_priority in prioritized_ids:
+                task = find_task_by_id(tasks, task_id)
+                if task:
+                    task["priority"] = old_priority
+
+    else:
+        print("\nNo tasks were updated.")
 
 
 def remove_task(tasks):
@@ -366,6 +458,7 @@ def list_tasks_menu(tasks):
         print("1 - List all tasks")
         print("2 - List completed tasks")
         print("3 - List pending tasks")
+        print("4 - List focus tasks")
         print("0 - Back")
         print("=" * 40)
 
@@ -378,6 +471,8 @@ def list_tasks_menu(tasks):
                 list_tasks(tasks, "completed")
             case "3":
                 list_tasks(tasks, "pending")
+            case "4":
+                list_focus_tasks(tasks)
             case "0":
                 break
             case _:
@@ -394,6 +489,7 @@ def manage_tasks_menu(tasks):
         print("3 - Complete multiple tasks")
         print("4 - Clear completed tasks")
         print("5 - Reorder tasks")
+        print("6 - Toggle priority")
         print("0 - Back to main menu")
         print("=" * 40)
 
@@ -410,6 +506,8 @@ def manage_tasks_menu(tasks):
                 clean_completed_tasks(tasks)
             case "5":
                 reorder_tasks(tasks)
+            case "6":
+                toggle_priority(tasks)
             case "0":
                 break
             case _:

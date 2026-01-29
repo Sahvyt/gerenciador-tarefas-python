@@ -10,7 +10,8 @@ def validate_task_structure(task):
         return False
 
     required_keys = ["id", "description", "completed", "created_at"]
-    optional_keys = ["completed_at"]  # might be useful in the future
+    # might be useful in the future
+    optional_keys = ["completed_at", "priority"]
 
     if not all(key in task for key in required_keys):
         return False
