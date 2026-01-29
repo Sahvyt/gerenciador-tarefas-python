@@ -1,27 +1,25 @@
 # Task Manager in Python (CLI)
 
 ![Status](https://img.shields.io/badge/status-in%20development-yellow)
-![Version](https://img.shields.io/badge/version-3.1.0-blue)
+![Version](https://img.shields.io/badge/version-3.2.0-blue)
 ![Python](https://img.shields.io/badge/python-3.10+-green)
 
 Command-line interface (CLI) application developed in Python for task management.
 
 This project was designed to practice solid programming fundamentals, clean code organization, and robust error handling in CLI applications.
 
-
 ---
 
 ## Features
 
-* Unique, incremental, and reusable ID system
-* Add, edit, complete, and remove tasks by ID
-* Batch operations (add, remove, and complete multiple tasks)
-* Task listing (all, completed, or pending)
-* Automatic persistence using a JSON file
-* Data validation when loading tasks
-* Simple terminal-based interface
-* Task creation and completion timestamps
-
+- Unique, incremental, and reusable ID system
+- Add, edit, complete, and remove tasks by ID
+- Batch operations (add, remove, and complete multiple tasks)
+- Task listing (all, completed, pending or urgent/priority tasks)
+- Automatic persistence using a JSON file
+- Data validation when loading tasks
+- Simple terminal-based interface
+- Task creation and completion timestamps
 
 ---
 
@@ -29,8 +27,8 @@ This project was designed to practice solid programming fundamentals, clean code
 
 ### Requirements
 
-* Python 3.10 or higher
-> This project uses Python 3.10+ due to structural pattern matching (`match/case`).
+- Python 3.10 or higher
+  > This project uses Python 3.10+ due to structural pattern matching (`match/case`).
 
 ### How to run
 
@@ -44,9 +42,13 @@ python main.py
 
 ```text
 #1 [✓] Buy milk
-#5 [⏳] Study Python
+#5 [⏳] Study Python ⭐
 #12 [⏳] Do exercises
 ```
+
+- ✓ = completed
+- ⏳ = pending
+- ⭐ = priority task
 
 IDs are permanent and only reused through the "Reorder tasks" operation.
 
@@ -58,7 +60,7 @@ IDs are permanent and only reused through the "Reorder tasks" operation.
 
 Task IDs do not depend on the task's position in the list. They are always calculated based on the highest existing ID, avoiding common bugs caused by list indices and ensuring consistency after removals.
 
-* Reordering is implemented to prevent continuous ID growth.
+- Reordering is implemented to prevent continuous ID growth.
 
 ### JSON persistence
 
@@ -76,29 +78,29 @@ Batch operations allow multiple inputs in sequence, with individual validation a
 
 The codebase was modularized to separate responsibilities:
 
-* `main.py`: application flow and user interface
-* `tasks.py`: business logic
-* `storage.py`: JSON file persistence
-* `models.py`: validations and utilities
+- `main.py`: application flow and user interface
+- `tasks.py`: business logic
+- `storage.py`: JSON file persistence
+- `models.py`: validations and utilities
 
 ---
 
 ## Roadmap
 
-* v1.0: Basic CLI with persistence
-* v2.0: Unique ID system
-* v2.1: Task filtering and editing
-* v3.0: Batch operations
-* v4.0: Desktop interface
-* v5.0: Web version
+- v1.0: Basic CLI with persistence
+- v2.0: Unique ID system
+- v2.1: Task filtering and editing
+- v3.0: Batch operations
+- v4.0: Desktop interface
+- v5.0: Web version
 
 ---
 
 ## Technologies
 
-* Python 3.10+
-* JSON
-* Git / GitHub
+- Python 3.10+
+- JSON
+- Git / GitHub
 
 ---
 

@@ -30,6 +30,7 @@ def load_tasks():
             task.setdefault("completed", False)
             task.setdefault("created_at", get_current_timestamp())
             task.setdefault("completed_at", None)
+            task.setdefault("priority", False)
 
             if validate_task_structure(task):
                 normalized_tasks.append(task)
